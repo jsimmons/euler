@@ -3,19 +3,16 @@
 int main()
 {
     int sum = 0;
-    int prev = 1, n = 1;
+    int a = 1, b = 1, c = a + b;
 
-    while(n <= 4000000)
+    while(c <= 4000000)
     {
-        int new = prev + n;
+        sum += c;
 
-        if(new % 2 == 0)
-        {
-            sum += new;
-        }
-
-        prev = n;
-        n = new;
+        // Every third result is even, so just calcualate those ones.
+        a = b + c;
+        b = c + a;
+        c = a + b;
     }
 
     printf("%i\n", sum);
