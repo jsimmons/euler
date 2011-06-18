@@ -1,29 +1,22 @@
 #include <stdio.h>
 
-static int fib(int n)
-{
-    if(n == 1)
-        return 1;
-    if(n == 2)
-        return 2;
-
-    return fib(n - 2) + fib(n - 1);
-}
-
 int main()
 {
-    int i = 1;
-    int top, sum = 0;
+    int sum = 0;
+    int prev = 1, n = 1;
 
-    do
+    while(n <= 4000000)
     {
-        top = fib(i);
+        int new = prev + n;
 
-        if(top % 2 == 0)
-            sum += top;
+        if(new % 2 == 0)
+        {
+            sum += new;
+        }
 
-        i++;
-    } while(top <= 4000000);
+        prev = n;
+        n = new;
+    }
 
     printf("%i\n", sum);
 
