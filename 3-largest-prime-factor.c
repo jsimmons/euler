@@ -13,7 +13,7 @@ int main()
 
     if(num % 2 == 0)
     {
-        top_prime_factor = prime;
+        top_prime_factor = 2;
     }
 
     for(long i = 0; i < top; i++)
