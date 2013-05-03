@@ -1,13 +1,15 @@
-CFLAGS=-g -O0 -Wall -Wextra -pedantic -std=c99
+CFLAGS=-g -O2 -Wall -Wextra -Werror -std=c99
 LIBS=-lm
 
 SOURCES=$(wildcard *.c)
-BINS=$(patsubst %.c,%,${SOURCES})
+TARGETS=$(patsubst %.c,%,${SOURCES})
 
-all: ${BINS}
+all: ${TARGETS}
+
+$(TARGETS): %: %.c
+	$(CC) $(CFLAGS) -o $@ $< $(LIBS)
 
 clean:
-	rm -f ${BINS}
+	rm -f ${TARGETS}
 
-$(BINS): %: %.c
-	$(CC) $(CFLAGS) -o $@ $< $(LIBS)
+.PHONY: all clean
