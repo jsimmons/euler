@@ -10,10 +10,7 @@ int main()
     for(unsigned i = 0; i < strlen(digits) - 4; i++)
     {
         int product = (digits[i] - '0') * (digits[i + 1] - '0') * (digits[i + 2] - '0') * (digits[i + 3] - '0') * (digits[i + 4] - '0');
-        if(product > max_product)
-        {
-            max_product = product;
-        }
+        max_product = product > max_product ? product : max_product;
     }
 
     printf("%i\n", max_product);
