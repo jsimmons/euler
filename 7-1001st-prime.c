@@ -1,40 +1,33 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
 #include <stdint.h>
-#include <limits.h>
+#include <math.h>
+
+#define SIEVE_BITS 64
+#define MAX_PRIME 150000
 
 int main()
 {
-    unsigned long max = 150000;
-    bool *seive_data = calloc(max, sizeof(bool));
-    if(!seive_data)
-    {
-        return 1;
-    }
+    uint64_t *sieve = calloc(MAX_PRIME / SIEVE_BITS + 1, sizeof(*sieve));
+    uint64_t num_primes = 1;
 
-    int primes = 1;
-
-    for(unsigned long i = 0; i < max; i++)
+    for(uint64_t i = 0; i < MAX_PRIME; i++)
     {
         // Skip to the next prime.
-        if(seive_data[i] == true)
-            continue;
+        if(sieve[i / SIEVE_BITS] & 1LLU << (i % SIEVE_BITS)) continue;
 
-        unsigned long prime = (i + 1) * 2 + 1;
+        uint64_t prime = (i + 1) * 2 + 1;
 
-        primes++;
-
-        if(primes == 10001)
+        if(++num_primes == 10001)
         {
-            printf("%lu\n", prime);
+            printf("%zu\n", prime);
             break;
         }
 
         // cross off.
-        for(unsigned long j = i; j < max; j += prime)
+        for(uint64_t j = i; j < MAX_PRIME; j += prime)
         {
-            seive_data[j] = true;
+            sieve[j / SIEVE_BITS] |= 1LLU << (j % SIEVE_BITS);
         }
     }
 
